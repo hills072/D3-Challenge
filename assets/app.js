@@ -28,8 +28,6 @@ var chartGroup = svg.append("g")
 // Initial Params
 var chosenXAxis = "poverty_percent";
 
-
-
 d3.csv("assets/data.csv").then(function(demoData, err) {
     if (err) throw err;
     console.log(demoData);
@@ -57,7 +55,7 @@ d3.csv("assets/data.csv").then(function(demoData, err) {
     // create scales
 
     var xScale = d3.scaleLinear()
-        .domain([0, povertyMax])
+        .domain(d3.extent(demoData, d => d.poverty))
         .range([0, width]);
     
     var yScale = d3.scaleLinear()
@@ -77,6 +75,39 @@ d3.csv("assets/data.csv").then(function(demoData, err) {
 
       chartGroup.append("g")
         .call(yAxis);
+    
+    // create circles
 
+    // var circle = svg.selectAll('.stateCircle') //select all elements with class ufoCircle. (There currently are none)
+    //     .data(demoData) //attach the data
+    //     .enter().append('circle') //aopend one circle for each data point. There are 11 data points, so there will be 11 circles
+    //     .attr('class', 'stateCircle') //give each circle class ufoCircle
+    //     .attr('r', 10) //assign radius
+    //     // Position the circles based on their x and y attributes. 
+    //     .attr("cx", function (d) { return xScale(d.poverty); })
+    //     .attr("cy", function (d) { return yScale(d.healthcare); })
+    //     .attr("fill", "lightblue")
+    //     .attr("opacity", ".5");
+
+    var circleGroup = svg.selectAll('.circleGroup')
+        .data(demoData).enter().append('g') 
+        .attr('class', 'circleGroup')
+        .attr('transform', function(d) { return 'translate(' + xScale(d.poverty) + ',' + yScale(d.healthcare) + ')'})
+
+    circleGroup.append('circle')
+        .attr('class', 'stateCircle')
+        .attr('r', 10)
+        .attr("fill", "lightblue")
+        .attr("opacity", ".5");
+
+    circleGroup.append('text')
+        .attr('class', 'stateText')
+        .attr('dx', -10)
+        .attr('dy', 5)
+        .text(function(d) { return d.abbr})
 
     });
+
+    d3.select(window).on("resize", makeResponsive);
+
+    makeResponsive();
