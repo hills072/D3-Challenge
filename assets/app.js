@@ -35,16 +35,20 @@ d3.csv("assets/data.csv").then(function(demoData, err) {
     console.log(demoData);
     poverty = [];
     healthcare = [];
+    states = [];
 
     for (var i = 0; i < demoData.length; i++) {
 
         demoData[i].poverty = +demoData[i].poverty;
         demoData[i].healthcare = +demoData[i].healthcare;
+
         poverty.push(demoData[i].poverty);
         healthcare.push(demoData[i].healthcare);
+        states.push(demoData[i].abbr);
     };
     console.log(poverty);
     console.log(healthcare);
+    console.log(states);
 
 
 
