@@ -76,8 +76,8 @@
       .attr("font-size", "12px")
       .attr("fill", "white")
       .attr("font-weight", "bold")
-      .attr('dx', -10)
-      .attr('dy', 3)
+      .attr('dx', -9)
+      .attr('dy', 4)
       .text(function (d) { return d.abbr });
 
     chartGroup.append("text")
