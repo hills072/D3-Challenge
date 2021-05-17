@@ -1,5 +1,3 @@
-function drawChart() {
-  
   var svgWidth = 1000;
   var svgHeight = 700;
 
@@ -40,7 +38,7 @@ function drawChart() {
     // create scales
     var xScale = d3.scaleLinear()
       .domain([8, povertyMax + 2])
-      .range([0, width])
+      .range([0, width]);
 
     var yScale = d3.scaleLinear()
       .domain([4, healthcareMax + 2])
@@ -67,7 +65,7 @@ function drawChart() {
       .attr('class', 'circleGroup')
       .attr('transform', function (d) {
         return 'translate(' + xScale(d.poverty) + ',' + yScale(d.healthcare) + ')'
-      })
+      });
 
     circleGroup.append('circle')
       .attr('r', 13)
@@ -80,7 +78,7 @@ function drawChart() {
       .attr("font-weight", "bold")
       .attr('dx', -10)
       .attr('dy', 3)
-      .text(function (d) { return d.abbr })
+      .text(function (d) { return d.abbr });
 
     chartGroup.append("text")
       // Position the text
@@ -111,9 +109,4 @@ function drawChart() {
       .attr("font-weight", "bold")
       .style("text-decoration", "underline")
       .text("Healthcare vs. Poverty by State");
-  })
-};
-// Initialize the chart
-drawChart();
-
-
+    });
